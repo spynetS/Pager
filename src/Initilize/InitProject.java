@@ -69,5 +69,13 @@ public class InitProject {
         fw.close();
     }
 
+    public static void main(String[] args)
+    {
+        try {
+            Init();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -126,6 +126,6 @@ public class Compiler {
         ResetBody();
         CompileToIndex();
         CompileToJs();
-        System.out.println("Compiled completed");
+        Debug.Log("Compiled to output/index.html successfully");
     }
 }

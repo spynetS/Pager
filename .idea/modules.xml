@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/htmljsframework.iml" filepath="$PROJECT_DIR$/htmljsframework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Pager.iml" filepath="$PROJECT_DIR$/Pager.iml" />
     </modules>
   </component>
 </project>
