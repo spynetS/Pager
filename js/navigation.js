@@ -5,7 +5,7 @@ for(var i = 0;i<arrayLength;i++)
                 {
                     if(pages[i]==index)
                     {
-                        document.getElementById(pages[i]).style.display = "block";
+                        document.getElementById(pages[i]).style.display = "flex";
                     }
                     else
                     {
