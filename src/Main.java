@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Main {
 
-    public static String mainPage = "output/index.html";
+    public static String mainPage = "output/index.php";
     public static void ResetBody()
     {
         try {
@@ -69,7 +69,7 @@ public class Main {
         for (final File fileEntry : folder.listFiles()) {
             if (fileEntry.isDirectory()) {
                 GetHtmlsFiles(fileEntry,files,index);
-            } else if(getExtenstion(fileEntry.getName()).equals("html")){
+            } else if(getExtenstion(fileEntry.getName()).equals("html")||getExtenstion(fileEntry.getName()).equals("php")){
                 Page page = new Page(fileEntry);
                 page.setId(String.valueOf(index));
                 files.add(page);
