@@ -85,69 +85,105 @@ public class Main {
         return extension;
     }
 
-    public static ArrayList<File> GetHtmlsFiles(File folder,ArrayList<File> files )
+    public static ArrayList<Page> GetHtmlsFiles(File folder,ArrayList<Page> files,int index)
     {
         if(files ==null)
             files = new ArrayList<>();
         for (final File fileEntry : folder.listFiles()) {
             if (fileEntry.isDirectory()) {
-                GetHtmlsFiles(fileEntry,files);
+                GetHtmlsFiles(fileEntry,files,index);
             } else if(getExtenstion(fileEntry.getName()).equals("htmls")){
-                files.add(fileEntry);
+                Page page = new Page(fileEntry);
+                System.out.println("index "+index);
+                page.setId(String.valueOf(index));
+                files.add(page);
+                index++;
             }
         }
         return files;
     }
-    public static void compile()
-    {
-        int index = 0;
 
-        ArrayList<File> htmlsFiles = GetHtmlsFiles(new File("htmls"),null);
-        System.out.println(htmlsFiles);
-        for (File page:
-                htmlsFiles) {
-            System.out.println(page.getName());
-            try {
-                List<String> lines = Files.readAllLines(Paths.get(mainPage));
-                int lineNumber = 0;
-                //Gets the line where to start writing
-                for (String line:
-                        lines) {
-                    lineNumber++;
-                    if(line.contains("<k id=\"app\">"))
+    public static void CompileToJs() throws Exception
+    {
+        //Make a list of all pages (comes from the compiler)
+        /*
+                function changePage(index)
                     {
-                        lineNumber++;
-                        break;
+                            var list = ["0","1","2"]
+
+                var arrayLength = list.length;
+
+                for(var i = 0;i<arrayLength;i++)
+                {
+                    if(list[i]==index)
+                    {
+                        document.getElementById(list[i]).style.display = "block";
+                    }
+                    else
+                    {
+                        document.getElementById(list[i]).style.display = "none";
                     }
                 }
-
-                System.out.println(index);
-                int i = 1;
-                List<String> pagelines = Files.readAllLines(Paths.get(page.getAbsolutePath()));
-
-                lines.add(lineNumber,"<div id=\""+index+"\">");
-
-                for (String pageLine:
-                        pagelines) {
-
-                    lines.add(lineNumber+i,pageLine);
-                    System.out.println(pageLine);
-                    i++;
-
-                }
-                lines.add(lineNumber+i,"</div>");
-
-                Files.write(Paths.get(mainPage),lines);
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-            index++;
+        }*/
+        FileWriter fw1 = new FileWriter("js/navigation.js",false);
+        fw1.write("");
+        fw1.close();
+        FileWriter fw = new FileWriter("js/navigation.js",true);
+        fw.write("function changePage(index){\n");
+        fw.write("var pages = [");
+        ArrayList<Page> pages = GetHtmlsFiles(new File("htmls"),null,0);
+        for (Page page: pages) {
+            fw.write("\""+page.getId()+"\",");
         }
+        fw.write("]\n");
+        fw.write("var arrayLength = pages.length;\nfor(var i = 0;i<arrayLength;i++)\n" +
+                "                {\n" +
+                "                    if(pages[i]==index)\n" +
+                "                    {\n" +
+                "                        document.getElementById(pages[i]).style.display = \"block\";\n" +
+                "                    }\n" +
+                "                    else\n" +
+                "                    {\n" +
+                "                        document.getElementById(pages[i]).style.display = \"none\";\n" +
+                "                    }\n" +
+                "                }\n" +
+                "        }");
+
+        fw.close();
+    }
+
+    public static void CompileToIndex() throws Exception
+    {
+        ArrayList<Page> files = GetHtmlsFiles(new File("htmls"),null,0);
+        System.out.println(files.get(0).getHtmlCode().get(1));
+        ArrayList<String> mainPageLines = (ArrayList<String>) Files.readAllLines(Paths.get(mainPage));
+        ArrayList<String> newMainpageLines = (ArrayList<String>) Files.readAllLines(Paths.get(mainPage));
+        //Loops through the mainpage lines
+        for(int i = 0;i<mainPageLines.size();i++)
+        {
+            if(mainPageLines.get(i).contains("<k id=\"app\">"))
+            {
+                //newMainpageLines.add(i+1,"ghello");
+                //loop through all the pages on the project
+                for (Page page:
+                     files) {
+                    //loops through the lines in the pagesfiles
+                    newMainpageLines.add(i + 1, "</div>");
+
+                    for (int x = page.getHtmlCode().size() - 1; x >= 0; x--) {
+                        System.out.println(page.getHtmlCode().get(x));
+                        newMainpageLines.add(i + 1, page.getHtmlCode().get(x));
+                    }
+                    newMainpageLines.add(i + 1, "<div id=\"" + page.getId() + "\">");
+                }
+            }
+        }
+        Files.write(Paths.get(mainPage),newMainpageLines);
     }
     public static void main(String[] args) throws Exception
     {
         ResetBody();
-        compile();
+        CompileToIndex();
+        CompileToJs();
     }
 }
