@@ -133,7 +133,10 @@ public class Main {
         fw.write("var pages = [");
         ArrayList<Page> pages = GetHtmlsFiles(new File("htmls"),null,0);
         for (Page page: pages) {
-            fw.write("\""+page.getId()+"\",");
+            if(page.getId().equals("0"))
+                fw.write("\""+page.getId()+"\"");
+            else
+                fw.write(",\""+page.getId()+"\"");
         }
         fw.write("]\n");
         fw.write("var arrayLength = pages.length;\nfor(var i = 0;i<arrayLength;i++)\n" +
