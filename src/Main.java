@@ -37,7 +37,7 @@ import java.util.List;
 
 public class Main {
 
-    public static String mainPage = "html/index.html";
+    public static String mainPage = "output/index.html";
     public static void ResetBody()
     {
         try {
@@ -92,7 +92,7 @@ public class Main {
         for (final File fileEntry : folder.listFiles()) {
             if (fileEntry.isDirectory()) {
                 GetHtmlsFiles(fileEntry,files,index);
-            } else if(getExtenstion(fileEntry.getName()).equals("htmls")){
+            } else if(getExtenstion(fileEntry.getName()).equals("html")){
                 Page page = new Page(fileEntry);
                 System.out.println("index "+index);
                 page.setId(String.valueOf(index));
@@ -143,7 +143,7 @@ public class Main {
                 "                {\n" +
                 "                    if(pages[i]==index)\n" +
                 "                    {\n" +
-                "                        document.getElementById(pages[i]).style.display = \"block\";\n" +
+                "                        document.getElementById(pages[i]).style.display = \"flex\";\n" +
                 "                    }\n" +
                 "                    else\n" +
                 "                    {\n" +
@@ -177,7 +177,10 @@ public class Main {
                         System.out.println(page.getHtmlCode().get(x));
                         newMainpageLines.add(i + 1, page.getHtmlCode().get(x));
                     }
-                    newMainpageLines.add(i + 1, "<div id=\"" + page.getId() + "\">");
+                    if(page.getId().equals("0"))
+                        newMainpageLines.add(i + 1, "<div id=\"" + page.getId() + "\" style=\"display:flex;\" >");
+                    else
+                        newMainpageLines.add(i + 1, "<div id=\"" + page.getId() + "\" style=\"display:none;\" >");
                 }
             }
         }

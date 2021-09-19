@@ -1,5 +1,5 @@
 function changePage(index){
-var pages = ["0","1",]
+var pages = ["0","1"]
 var arrayLength = pages.length;
 for(var i = 0;i<arrayLength;i++)
                 {
