@@ -15,19 +15,37 @@ import java.util.ArrayList;
 public class Compiler {
 
     private static String outputfile="output/index.html";
-    private static String inputFile ="htmls";
+    private static String inputfile ="htmls";
+    private static String getJsFolder()
+    {
+        return getInputFile().replace(getInputFile().split("/")[getInputFile().split("/").length-1],"js");
+    }
+    private static ArrayList<String> CompiledFile = new ArrayList<>();
+    private static String pagestring = "p";
+    private static String mainpagestring = "mp";
+
 
     public static String getInputFile() {
-        return inputFile;
+        return inputfile;
     }
 
     public static void setInputFile(String inputFile) {
-        inputFile = inputFile;
+        inputfile = inputFile;
     }
 
     public static String getOutputfile() {
         // if the string is set reteun it else return defult
-        return "";
+        if(Files.exists(Paths.get(outputfile)))
+            return outputfile;
+        else
+        {
+            try {
+                Files.createFile(Paths.get(outputfile));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return outputfile;
+        }
     }
 
     public static void setOutputfile(String outputfile) {
@@ -36,48 +54,67 @@ public class Compiler {
 
     public static void ResetBody()
     {
-        try {
-            ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(getOutputfile()));
-            ArrayList<String> lines1 = (ArrayList<String>) Files.readAllLines(Paths.get(getOutputfile()));
-            boolean first = false;
-            int i = 0;
+        ArrayList<String> lines = (ArrayList<String>) CompiledFile.clone();
+        boolean first = false;
+        int i = 0;
 
-            for (String line:
-                 lines) {
-                if(line.contains("</k>"))
-                {
-                    break;
-                }
-                if(first)
-                {
-                    lines1.remove(line);
-
-                }
-                if(line.contains("<k id=\"app\">"))
-                {
-                    first = true;
-                    lines1.add(i+1," ");
-                    lines1.add(i+1," ");
-                }
-                i++;
+        for (String line:
+             lines) {
+            if(line.contains("</pages>"))
+            {
+                break;
+            }
+            if(first)
+            {
+                CompiledFile.remove(line);
 
             }
-            Files.write(Paths.get(getOutputfile()),lines1);
-        } catch (IOException e) {
-            e.printStackTrace();
+            if(line.contains("<pages>"))
+            {
+                first = true;
+                CompiledFile.add(i+1," ");
+                CompiledFile.add(i+1," ");
+            }
+            i++;
         }
+    }
 
+    public static void ResetMainPages()
+    {
+        ArrayList<String> lines = (ArrayList<String>) CompiledFile.clone();
+        boolean first = false;
+        int i = 0;
+
+        for (String line:
+                lines) {
+            if(line.contains("</mainpages>"))
+            {
+                break;
+            }
+            if(first)
+            {
+                CompiledFile.remove(line);
+
+            }
+            if(line.contains("<mainpages>"))
+            {
+                first = true;
+                CompiledFile.add(i+1," ");
+                CompiledFile.add(i+1," ");
+            }
+            i++;
+        }
     }
 
     public static void CompileToJs() throws Exception
     {
-        FileWriter fw1 = new FileWriter("js/navigation.js",false);
+        FileWriter fw1 = new FileWriter(getJsFolder()+"/navigation.js",false);
         fw1.write("");
         fw1.close();
-        FileWriter fw = new FileWriter("js/navigation.js",true);
+        FileWriter fw = new FileWriter(getJsFolder()+"/navigation.js",true);
         fw.write("function changePage(index){\n");
         fw.write("var pages = [");
-        ArrayList<Page> pages = FileHandler.GetHtmlsFiles(new File("htmls"),null,0);
+        ArrayList<Page> pages = FileHandler.GetHtmlsFiles(new File(getInputFile()),pagestring,null,0);
         for (Page page: pages) {
             if(page.getId().equals("0"))
                 fw.write("\""+page.getId()+"\"");
@@ -101,48 +138,78 @@ public class Compiler {
         fw.close();
     }
 
-    public static void CompileToIndex() throws Exception
+    public static void CompileToOutputFile() throws Exception
     {
-        ArrayList<Page> files = FileHandler.GetHtmlsFiles(new File("htmls"),null,0);
-        ArrayList<String> mainPageLines = (ArrayList<String>) Files.readAllLines(Paths.get(getOutputfile()));
-        ArrayList<String> newMainpageLines = (ArrayList<String>) Files.readAllLines(Paths.get(getOutputfile()));
+        ArrayList<Page> pages = FileHandler.GetHtmlsFiles(new File(getInputFile()),pagestring,null,0);
+        ArrayList<Page> mainpages = FileHandler.GetHtmlsFiles(new File(getInputFile()),mainpagestring,null,0);
+        ArrayList<String> lines =CompiledFile;
+        ArrayList<String> newMainpageLines = CompiledFile;
         //Loops through the mainpage lines
-        for(int i = 0;i<mainPageLines.size();i++)
+        for(int i = 0;i<lines.size();i++)
         {
-            if(mainPageLines.get(i).contains("<k id=\"app\">"))
+            if(lines.get(i).contains("<pages>"))
             {
                 //newMainpageLines.add(i+1,"ghello");
                 //loop through all the pages on the project
                 for (Page page:
-                     files) {
+                        pages) {
                     //loops through the lines in the pagesfiles
-                    newMainpageLines.add(i + 1, "</div>");
+                    CompiledFile.add(i + 1, "</div>");
 
                     for (int x = page.getHtmlCode().size() - 1; x >= 0; x--) {
-                        newMainpageLines.add(i + 1, page.getHtmlCode().get(x));
+                        CompiledFile.add(i + 1, page.getHtmlCode().get(x));
                     }
                     if(page.getId().equals("0"))
-                        newMainpageLines.add(i + 1, "<div id=\"" + page.getId() + "\" style=\"display:flex;\" >");
+                        CompiledFile.add(i + 1, "<div id=\"" + page.getId() + "\" style=\"display:flex;\" >");
                     else
-                        newMainpageLines.add(i + 1, "<div id=\"" + page.getId() + "\" style=\"display:none;\" >");
+                        CompiledFile.add(i + 1, "<div id=\"" + page.getId() + "\" style=\"display:none;\" >");
+                }
+            }
+            else if(lines.get(i).contains("<mainpages>"))
+            {
+                for(Page mainpage:mainpages)
+                {
+                    CompiledFile.add(i + 1, "</div>");
+
+                    for (int x = mainpage.getHtmlCode().size() - 1; x >= 0; x--) {
+                        CompiledFile.add(i + 1, mainpage.getHtmlCode().get(x));
+                    }
+                    if(mainpage.getId().equals("0"))
+                        CompiledFile.add(i + 1, "<div id=\"main" + mainpage.getId() + "\" style=\"display:flex;\" >");
+                    else
+                        CompiledFile.add(i + 1, "<div id=\"main" + mainpage.getId() + "\" style=\"display:none;\" >");
                 }
             }
         }
-        Files.write(Paths.get(getOutputfile()),newMainpageLines);
     }
+    public static void WriteToOutputFile()
+    {
+        try {
+            Files.write(Paths.get(getOutputfile()),CompiledFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) throws Exception
     {
         if(args.length>0)
         {
+
             setInputFile(args[0]);
             if(args.length>1)
             {
                 setOutputfile(args[1]);
+                Debug.Log("hl");
             }
         }
+        CompiledFile = (ArrayList<String>) Files.readAllLines(Paths.get(getOutputfile()));
         ResetBody();
-        CompileToIndex();
+        ResetBody();
+        ResetMainPages();
+        CompileToOutputFile();
         CompileToJs();
+        WriteToOutputFile();
         Debug.Log("Compiled to output/index.html successfully");
     }
 }

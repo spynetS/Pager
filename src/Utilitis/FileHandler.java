@@ -15,6 +15,7 @@ public class FileHandler {
         ProjectPath = projectPath;
     }
 
+
     public static String SetPath(String localpath)
     {
         //Never start with / in localpath
@@ -38,14 +39,14 @@ public class FileHandler {
         return extension;
     }
 
-    public static ArrayList<Page> GetHtmlsFiles(File folder, ArrayList<Page> files, int index)
+    public static ArrayList<Page> GetHtmlsFiles(File folder,String extenstion, ArrayList<Page> files, int index)
     {
         if(files ==null)
             files = new ArrayList<>();
         for (final File fileEntry : folder.listFiles()) {
             if (fileEntry.isDirectory()) {
-                GetHtmlsFiles(fileEntry,files,index);
-            } else if(getExtenstion(fileEntry.getName()).equals("html")||getExtenstion(fileEntry.getName()).equals("php")){
+                GetHtmlsFiles(fileEntry,extenstion,files,index);
+            } else if(getExtenstion(fileEntry.getName()).equals(extenstion)){
                 Page page = new Page(fileEntry);
                 page.setId(String.valueOf(index));
                 files.add(page);
