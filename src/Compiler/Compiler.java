@@ -14,22 +14,31 @@ import java.util.ArrayList;
 
 public class Compiler {
 
-    public static String mainPage()
-    {
-        if(Files.exists(Paths.get("output/index.html")))
-        {
-            return "output/index.html";
-        }
-        else
-        {
-            return "output/index.html";
-        }
+    private static String outputfile="output/index.html";
+    private static String inputFile ="htmls";
+
+    public static String getInputFile() {
+        return inputFile;
     }
+
+    public static void setInputFile(String inputFile) {
+        inputFile = inputFile;
+    }
+
+    public static String getOutputfile() {
+        // if the string is set reteun it else return defult
+        return "";
+    }
+
+    public static void setOutputfile(String outputfile) {
+        Compiler.outputfile = outputfile;
+    }
+
     public static void ResetBody()
     {
         try {
-            ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(mainPage()));
-            ArrayList<String> lines1 = (ArrayList<String>) Files.readAllLines(Paths.get(mainPage()));
+            ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(getOutputfile()));
+            ArrayList<String> lines1 = (ArrayList<String>) Files.readAllLines(Paths.get(getOutputfile()));
             boolean first = false;
             int i = 0;
 
@@ -53,7 +62,7 @@ public class Compiler {
                 i++;
 
             }
-            Files.write(Paths.get(mainPage()),lines1);
+            Files.write(Paths.get(getOutputfile()),lines1);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -95,8 +104,8 @@ public class Compiler {
     public static void CompileToIndex() throws Exception
     {
         ArrayList<Page> files = FileHandler.GetHtmlsFiles(new File("htmls"),null,0);
-        ArrayList<String> mainPageLines = (ArrayList<String>) Files.readAllLines(Paths.get(mainPage()));
-        ArrayList<String> newMainpageLines = (ArrayList<String>) Files.readAllLines(Paths.get(mainPage()));
+        ArrayList<String> mainPageLines = (ArrayList<String>) Files.readAllLines(Paths.get(getOutputfile()));
+        ArrayList<String> newMainpageLines = (ArrayList<String>) Files.readAllLines(Paths.get(getOutputfile()));
         //Loops through the mainpage lines
         for(int i = 0;i<mainPageLines.size();i++)
         {
@@ -119,10 +128,18 @@ public class Compiler {
                 }
             }
         }
-        Files.write(Paths.get(mainPage()),newMainpageLines);
+        Files.write(Paths.get(getOutputfile()),newMainpageLines);
     }
     public static void main(String[] args) throws Exception
     {
+        if(args.length>0)
+        {
+            setInputFile(args[0]);
+            if(args.length>1)
+            {
+                setOutputfile(args[1]);
+            }
+        }
         ResetBody();
         CompileToIndex();
         CompileToJs();
