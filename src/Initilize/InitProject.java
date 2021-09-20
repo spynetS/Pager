@@ -23,24 +23,24 @@ public class InitProject {
         java.nio.file.Files.createFile(Paths.get(FileHandler.SetPath("htmls/Page1.p")));
         Debug.Log("page1 created successfully");
 
-        WritePage(FileHandler.SetPath("htmls/Page1.p"),"<div><h1>This is page 1!</h1></div>");
+        FileHandler.WritePage(FileHandler.SetPath("htmls/Page1.p"),"<div><h1>This is page 1!</h1></div>");
 
         java.nio.file.Files.createFile(Paths.get(FileHandler.SetPath("htmls/Page2.p")));
         Debug.Log("page2 created successfully");
 
-        WritePage(FileHandler.SetPath("htmls/Page2.p"),"<div><h1>This is page 2!</h1></div>");
+        FileHandler.WritePage(FileHandler.SetPath("htmls/Page2.p"),"<div><h1>This is page 2!</h1></div>");
 
 
         java.nio.file.Files.createFile(Paths.get(FileHandler.SetPath("htmls/masterpage1.mp")));
         Debug.Log("masterpage1 created successfully");
 
-        WritePage(FileHandler.SetPath("htmls/masterpage1.mp"),"<button onclick=\"changePage(0)\" >1</button>\n<button onclick=\"changePage(1)\" >2</button>");
+        FileHandler.WritePage(FileHandler.SetPath("htmls/masterpage1.mp"),"<button onclick=\"changePage(0)\" >1</button>\n<button onclick=\"changePage(1)\" >2</button>");
 
         java.nio.file.Files.createDirectories(Paths.get(FileHandler.SetPath("output")));
         Debug.Log("output dir created successfully");
         java.nio.file.Files.createFile(Paths.get(FileHandler.SetPath("output/index.html")));
         Debug.Log("output file created successfully");
-        WritePage(FileHandler.SetPath("output/index.html"),"<!doctype html>\n" +
+        FileHandler.WritePage(FileHandler.SetPath("output/index.html"),"<!doctype html>\n" +
                 "<html lang=\"en\">\n" +
                 "<head >\n" +
                 "    <meta charset=\"utf-8\">\n" +
@@ -65,12 +65,6 @@ public class InitProject {
         Debug.Log("navigation created successfully");
         Debug.Log("  ");
         Debug.Log("project initialized successfully at "+FileHandler.getProjectPath());
-    }
-
-    private static void WritePage(String path,String command) throws IOException {
-        FileWriter fw = new FileWriter(path);
-        fw.write(command);
-        fw.close();
     }
 
     public static void main(String[] args)

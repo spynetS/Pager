@@ -41,6 +41,26 @@ public class Compiler {
         {
             try {
                 Files.createFile(Paths.get(outputfile));
+                FileHandler.WritePage(outputfile,"<!doctype html>\n" +
+                        "<html lang=\"en\">\n" +
+                        "<head >\n" +
+                        "    <meta charset=\"utf-8\">\n" +
+                        "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+                        "    <script type=\"text/javascript\" src=\"../js/navigation.js\"></script>\n" +
+                        "    <title>Home</title>\n" +
+                        "</head>\n" +
+                        "<body>\n" +
+                        "<mainpages>\n" +
+                        "\n" +
+                        "</mainpages>\n" +
+                        "\n" +
+                        "<pages>\n" +
+                        "    \n" +
+                        "</pages>\n" +
+                        "\n" +
+                        "</body>\n" +
+                        "\n" +
+                        "</html>\n");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -48,8 +68,8 @@ public class Compiler {
         }
     }
 
-    public static void setOutputfile(String outputfile) {
-        Compiler.outputfile = outputfile;
+    public static void setOutputfile(String outputFile) {
+        outputfile = outputFile;
     }
 
     public static void ResetBody()
@@ -221,12 +241,10 @@ public class Compiler {
     {
         if(args.length>0)
         {
-
-            setInputFile(args[0]);
+            System.out.println("setoutput "+args[0]);
             if(args.length>1)
             {
-                setOutputfile(args[1]);
-                Debug.Log("hl");
+                setInputFile(args[1]);
             }
         }
         CompiledFile = (ArrayList<String>) Files.readAllLines(Paths.get(getOutputfile()));

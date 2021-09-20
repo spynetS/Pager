@@ -1,6 +1,8 @@
 package Utilitis;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class FileHandler {
@@ -15,6 +17,11 @@ public class FileHandler {
         ProjectPath = projectPath;
     }
 
+    public static void WritePage(String path,String command) throws IOException {
+        FileWriter fw = new FileWriter(path);
+        fw.write(command);
+        fw.close();
+    }
 
     public static String SetPath(String localpath)
     {
