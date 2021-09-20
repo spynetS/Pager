@@ -16,7 +16,7 @@ When compiled (pc.jar) Pager will insert these pages in your output file.
 
 output.html  
 ![](readmepictures/output.png)
-
+[Hello](readmepictures/index.html)
 Pager will also create javascript file (navigation.js) to make it easy to navigate though
 the pages. There are two different page types, page (.p), masterpage (.mp). 
 You can display one page and one masterpage at the same time.
