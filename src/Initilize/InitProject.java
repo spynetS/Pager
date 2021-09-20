@@ -20,15 +20,21 @@ public class InitProject {
         java.nio.file.Files.createDirectories(Paths.get(FileHandler.SetPath("htmls")));
         Debug.Log("htmls dir created successfully");
 
-        java.nio.file.Files.createFile(Paths.get(FileHandler.SetPath("htmls/Page1.html")));
+        java.nio.file.Files.createFile(Paths.get(FileHandler.SetPath("htmls/Page1.p")));
         Debug.Log("page1 created successfully");
 
-        WritePage(FileHandler.SetPath("htmls/Page1.html"),"<div><h1>This is page 1!</h1></div>");
+        WritePage(FileHandler.SetPath("htmls/Page1.p"),"<div><h1>This is page 1!</h1></div>");
 
-        java.nio.file.Files.createFile(Paths.get(FileHandler.SetPath("htmls/Page2.php")));
+        java.nio.file.Files.createFile(Paths.get(FileHandler.SetPath("htmls/Page2.p")));
         Debug.Log("page2 created successfully");
 
-        WritePage(FileHandler.SetPath("htmls/Page2.php"),"<div><h1>This is page 2!</h1></div>");
+        WritePage(FileHandler.SetPath("htmls/Page2.p"),"<div><h1>This is page 2!</h1></div>");
+
+
+        java.nio.file.Files.createFile(Paths.get(FileHandler.SetPath("htmls/masterpage1.mp")));
+        Debug.Log("masterpage1 created successfully");
+
+        WritePage(FileHandler.SetPath("htmls/masterpage1.mp"),"<button onclick=\"changePage(0)\" >1</button>\n<button onclick=\"changePage(1)\" >2</button>");
 
         java.nio.file.Files.createDirectories(Paths.get(FileHandler.SetPath("output")));
         Debug.Log("output dir created successfully");
@@ -43,13 +49,12 @@ public class InitProject {
                 "    <title>Home</title>\n" +
                 "</head>\n" +
                 "<body>\n" +
-                "<div>\n" +
-                "    <button onclick=\"changePage(0)\" >1</button>\n" +
-                "    <button onclick=\"changePage(1)\" >2</button>\n" +
-                "</div>\n" +
-                "<k id=\"app\">\n" +
+                "<mainpages>\n" +
+
+                "</mainpages>\n" +
+                "<pages>\n" +
                 "\n" +
-                "</k>\n" +
+                "</pages>\n" +
                 "\n" +
                 "</body>\n" +
                 "\n" +
@@ -71,17 +76,15 @@ public class InitProject {
     public static void main(String[] args)
     {
         try {
-            Init(args[0]);
-        } catch (Exception e) {
-            try {
+            if (args.length > 0) {
+                Init(args[0]);
+            } else {
                 Init("");
-            } catch (Exception exception) {
-                exception.printStackTrace();
             }
-
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
-        Debug.Input("asd");
     }
 
 }
