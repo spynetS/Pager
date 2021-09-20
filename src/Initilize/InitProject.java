@@ -9,9 +9,8 @@ import java.nio.file.Paths;
 
 public class InitProject {
 
-    public static void Init() throws Exception
+    public static void Init(String path) throws Exception
     {
-        String path = Debug.Input("Write path where the project shall be created (no path will the project be created here)");
         FileHandler.setProjectPath(path);
         CreateFiles();
     }
@@ -72,10 +71,17 @@ public class InitProject {
     public static void main(String[] args)
     {
         try {
-            Init();
+            Init(args[0]);
         } catch (Exception e) {
+            try {
+                Init("");
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+
             e.printStackTrace();
         }
+        Debug.Input("asd");
     }
 
 }
