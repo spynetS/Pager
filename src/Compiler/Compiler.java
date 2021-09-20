@@ -135,6 +135,32 @@ public class Compiler {
                 "                }\n" +
                 "        }");
 
+
+        fw.write("function changeMainPage(index){\n");
+        fw.write("var mainpages = [");
+        ArrayList<Page> mainpages = FileHandler.GetHtmlsFiles(new File(getInputFile()),mainpagestring,null,0);
+        for (Page page: pages) {
+            if(page.getId().equals("0"))
+                fw.write("\"main"+page.getId()+"\"");
+            else
+                fw.write(",\"main"+page.getId()+"\"");
+        }
+        fw.write("]\n");
+        fw.write("var arrayLength1 = mainpages.length;\nfor(var i = 0;i<arrayLength1;i++)\n" +
+                "                {\n" +
+                "                    if(mainpages[i]==\"main\"+index)\n" +
+                "                    {\n" +
+                "                        document.getElementById(mainpages[i]).style.display = \"flex\";\n" +
+                "                    }\n" +
+                "                    else\n" +
+                "                    {\n" +
+                "                        document.getElementById(mainpages[i]).style.display = \"none\";\n" +
+                "                    }\n" +
+                "                }\n" +
+                "        }");
+
+        fw.close();
+
         fw.close();
     }
 
@@ -204,6 +230,7 @@ public class Compiler {
             }
         }
         CompiledFile = (ArrayList<String>) Files.readAllLines(Paths.get(getOutputfile()));
+        ResetBody();
         ResetBody();
         ResetBody();
         ResetMainPages();
