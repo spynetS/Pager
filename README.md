@@ -32,7 +32,7 @@ You can display one page and one masterpage at the same time.
 
 ### Installing
 
-Download the two jar files pinit.jar and pc.jar
+[Download](https://github.com/spynetS/Pager/releases/tag/1.0) the two jar files pinit.jar and pc.jar and place them where you want your project
 
 
 ### Executing program
