@@ -241,7 +241,7 @@ public class Compiler {
     {
         if(args.length>0)
         {
-            System.out.println("setoutput "+args[0]);
+            setOutputfile(args[0]);
             if(args.length>1)
             {
                 setInputFile(args[1]);
