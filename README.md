@@ -4,6 +4,8 @@ Pager is a very lightweight framework that helps you create pages that is displa
 
 ## Description
 
+Pager makes it very easy to orginize your different pages for your websites.
+
 You write your pages in small html bits in the Pager files.    
 
 page1.p  
