@@ -156,7 +156,7 @@ public class Compiler {
                 "        }");
 
 
-        fw.write("function changeMainPage(index){\n");
+        fw.write("function changeMasterPage(index){\n");
         fw.write("var mainpages = [");
         ArrayList<Page> mainpages = FileHandler.GetHtmlsFiles(new File(getInputFile()),mainpagestring,null,0);
         for (Page page: pages) {
