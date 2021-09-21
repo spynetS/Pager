@@ -1,10 +1,10 @@
 # Pager
 
-Pager is a very lightweight framework that helps you create pages that is displayed on the same document.
+Pager is a very lightweight framework that helps you create pages that are displayed on the same document.
 
 ## Description
 
-Pager makes it very easy to orginize your different pages for your websites.
+Pager makes it very easy to organize your different pages for your websites.
 
 You write your pages in small html bits in the Pager files.    
 
@@ -19,7 +19,7 @@ When compiled (pc.jar) Pager will insert these pages in your output file.
 output.html  
 ![](readmepictures/output.png)
 ![](readmepictures/testvideo.gif)
-Pager will also create javascript file (navigation.js) to make it easy to navigate though
+Pager will also create a javascript file (navigation.js) to make it easy to navigate through
 the pages. There are two different page types, page (.p), masterpage (.mp). 
 You can display one page and one masterpage at the same time.
 
@@ -29,7 +29,7 @@ You can display one page and one masterpage at the same time.
 
 ### Dependencies
 
-* Java jdk 1.8
+* Java JDK 1.8
 * Windows, Linux, Mac
 
 ### Installing
@@ -43,7 +43,7 @@ You can display one page and one masterpage at the same time.
 ```
 java -jar pinit.jar
 ```
-* If you want to create it on a different place then the jar file is located write it
+* If you want to create it in a different place than the jar file is located write it
 ```
 java -jar pinit.jar ProjectFolder
 ```
