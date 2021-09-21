@@ -132,8 +132,25 @@ public class Compiler {
         fw1.write("");
         fw1.close();
         FileWriter fw = new FileWriter(getJsFolder()+"/navigation.js",true);
-        fw.write("function changePage(index){\n");
-        fw.write("var pages = [");
+        fw.write("function getCookie(cname) {\n" +
+                "    let name = cname + \"=\";\n" +
+                "    let decodedCookie = decodeURIComponent(document.cookie);\n" +
+                "    let ca = decodedCookie.split(';');\n" +
+                "    for(let i = 0; i <ca.length; i++) {\n" +
+                "        let c = ca[i];\n" +
+                "        while (c.charAt(0) == ' ') {\n" +
+                "        c = c.substring(1);\n" +
+                "        }\n" +
+                "        if (c.indexOf(name) == 0) {\n" +
+                "        return c.substring(name.length, c.length);\n" +
+                "        }\n" +
+                "    }\n" +
+                "    return \"\";\n" +
+                "}"+"\n" +
+                "function changePage(index){\n" +
+                "    document.cookie=\"page=\"+index;\n" +
+                "    var pages = [");
+
         ArrayList<Page> pages = FileHandler.GetHtmlsFiles(new File(getInputFile()),pagestring,null,0);
         for (Page page: pages) {
             if(page.getId().equals("0"))
@@ -141,23 +158,44 @@ public class Compiler {
             else
                 fw.write(",\""+page.getId()+"\"");
         }
-        fw.write("]\n");
-        fw.write("var arrayLength = pages.length;\nfor(var i = 0;i<arrayLength;i++)\n" +
-                "                {\n" +
-                "                    if(pages[i]==index)\n" +
-                "                    {\n" +
-                "                        document.getElementById(pages[i]).style.display = \"flex\";\n" +
-                "                    }\n" +
-                "                    else\n" +
-                "                    {\n" +
-                "                        document.getElementById(pages[i]).style.display = \"none\";\n" +
-                "                    }\n" +
-                "                }\n" +
-                "        }");
-
-
-        fw.write("function changeMasterPage(index){\n");
-        fw.write("var mainpages = [");
+        fw.write("]\n" +
+                "    var arrayLength = pages.length;\n" +
+                "    if(pages.includes(index.toString()))\n" +
+                "    {\n" +
+                "        for(var i = 0;i<arrayLength;i++)\n" +
+                "        {\n" +
+                "            if(pages[i]===index)\n" +
+                "            {\n" +
+                "                document.getElementById(pages[i]).style.display = \"flex\";\n" +
+                "            }\n" +
+                "            else if(pages[i]==index)\n" +
+                "            {\n" +
+                "                document.getElementById(pages[i]).style.display = \"flex\";\n" +
+                "            }\n" +
+                "            else\n" +
+                "            {\n" +
+                "                document.getElementById(pages[i]).style.display = \"none\";\n" +
+                "            }\n" +
+                "        }\n" +
+                "    }\n" +
+                "}"+"\n" +
+                "function changeMasterPage(index){\n" +
+                "    \n" +
+                "    if(index.toString().includes(\"main\"))\n" +
+                "    {\n" +
+                "        document.cookie=\"masterpage=\"+index;\n" +
+                "    }\n" +
+                "    else if(index >0)\n" +
+                "    {\n" +
+                "        document.cookie=\"masterpage=main\"+index;\n" +
+                "        index = \"main\"+index.toString();\n" +
+                "    }\n" +
+                "    else\n" +
+                "    {\n" +
+                "        document.cookie=\"masterpage=main0\";\n" +
+                "        index = \"main0\";\n" +
+                "    }\n" +
+                "    var mainpages = [");
         ArrayList<Page> mainpages = FileHandler.GetHtmlsFiles(new File(getInputFile()),mainpagestring,null,0);
         for (Page page: pages) {
             if(page.getId().equals("0"))
@@ -165,22 +203,31 @@ public class Compiler {
             else
                 fw.write(",\"main"+page.getId()+"\"");
         }
-        fw.write("]\n");
-        fw.write("var arrayLength1 = mainpages.length;\nfor(var i = 0;i<arrayLength1;i++)\n" +
-                "                {\n" +
-                "                    if(mainpages[i]==\"main\"+index)\n" +
-                "                    {\n" +
-                "                        document.getElementById(mainpages[i]).style.display = \"flex\";\n" +
-                "                    }\n" +
-                "                    else\n" +
-                "                    {\n" +
-                "                        document.getElementById(mainpages[i]).style.display = \"none\";\n" +
-                "                    }\n" +
-                "                }\n" +
-                "        }");
-
-        fw.close();
-
+        fw.write("]\n" +
+                "    var arrayLength1 = mainpages.length;\n" +
+                "    if(mainpages.includes(index.toString()))\n" +
+                "    { \n" +
+                "        for(var i = 0;i<arrayLength1;i++)\n" +
+                "        {\n" +
+                "            if(mainpages[i]===index)\n" +
+                "            {\n" +
+                "                document.getElementById(mainpages[i]).style.display = \"flex\";\n" +
+                "            }\n" +
+                "            else\n" +
+                "            {\n" +
+                "                document.getElementById(mainpages[i]).style.display = \"none\";\n" +
+                "            }\n" +
+                "        }\n" +
+                "    }\n" +
+                "}\n" +
+                "\n" +
+                "function reload()\n" +
+                "{\n" +
+                "    var pageindex = getCookie(\"page\");\n" +
+                "    var masterpageindex = getCookie(\"masterpage\");\n" +
+                "    changePage(pageindex);\n" +
+                "    changeMasterPage(masterpageindex);\n" +
+                "}");
         fw.close();
     }
 
@@ -241,7 +288,7 @@ public class Compiler {
     {
         if(args.length>0)
         {
-            System.out.println("setoutput "+args[0]);
+            setOutputfile(args[0]);
             if(args.length>1)
             {
                 setInputFile(args[1]);
