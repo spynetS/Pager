@@ -6,6 +6,7 @@
         <element id="file-copy" path="$PROJECT_DIR$/out/ínit/META-INF/MANIFEST.MF" />
       </element>
       <element id="module-output" name="Pager" />
+      <element id="file-copy" path="$PROJECT_DIR$/res/project.txt" />
     </root>
   </artifact>
 </component>
