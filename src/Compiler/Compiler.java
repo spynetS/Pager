@@ -302,6 +302,6 @@ public class Compiler {
         CompileToOutputFile();
         CompileToJs();
         WriteToOutputFile();
-        Debug.Log("Compiled to output/index.html successfully");
+        Debug.Log("Compiled to "+outputfile+" successfully");
     }
 }

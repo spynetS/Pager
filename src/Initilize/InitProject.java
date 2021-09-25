@@ -2,10 +2,12 @@ package Initilize;
 
 import Utilitis.Debug;
 import Utilitis.FileHandler;
+import Utilitis.Page;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class InitProject {
 
@@ -17,24 +19,19 @@ public class InitProject {
 
     private static void CreateFiles() throws Exception
     {
+        String path = "/project.txt";
+        System.out.print("project ");
+        System.out.println(InitProject.class.getResourceAsStream(path).toString());
+        ArrayList<Page> pages = FileHandler.GetHtmlsFiles(InitProject.class.getResourceAsStream(path),"-----");
         java.nio.file.Files.createDirectories(Paths.get(FileHandler.SetPath("htmls")));
         Debug.Log("htmls dir created successfully");
 
-        java.nio.file.Files.createFile(Paths.get(FileHandler.SetPath("htmls/Page1.p")));
-        Debug.Log("page1 created successfully");
-
-        FileHandler.WritePage(FileHandler.SetPath("htmls/Page1.p"),"<div><h1>This is page 1!</h1></div>");
-
-        java.nio.file.Files.createFile(Paths.get(FileHandler.SetPath("htmls/Page2.p")));
-        Debug.Log("page2 created successfully");
-
-        FileHandler.WritePage(FileHandler.SetPath("htmls/Page2.p"),"<div><h1>This is page 2!</h1></div>");
-
-
-        java.nio.file.Files.createFile(Paths.get(FileHandler.SetPath("htmls/masterpage1.mp")));
-        Debug.Log("masterpage1 created successfully");
-
-        FileHandler.WritePage(FileHandler.SetPath("htmls/masterpage1.mp"),"<button onclick=\"changePage(0)\" >1</button>\n<button onclick=\"changePage(1)\" >2</button>");
+        for(Page page : pages)
+        {
+            Files.createFile(Paths.get(FileHandler.SetPath("htmls/"+page.getFile().getPath())));
+            FileHandler.WritePage((FileHandler.SetPath("htmls/"+page.getFile().getPath())),page.getHtmlCode());
+            Debug.Log(page.getFile().getName()+" has been created successfully");
+        }//Try to get the files from the txt file instead from the files
 
         java.nio.file.Files.createDirectories(Paths.get(FileHandler.SetPath("output")));
         Debug.Log("output dir created successfully");
