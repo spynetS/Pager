@@ -1,21 +1,31 @@
 -----masterpage1
-<h1>this is masterpage 1</h1>
-<button onclick="changeMasterPage(1)" >click to change masterpage</button>
+<h1>Login</h1>
 
-<h5>change page</h5>
-<button onclick="changePage(0)" >1</button>
-<button onclick="changePage(1)" >2</button>
 -----masterpage1
 -----masterpage2
-<h1>this is masterpage 2</h1>
-<button onclick="changeMasterPage(0)" >change masterpage</button>
+<h1>this is masterpage 1</h1>
+<script>
+    function logout()
+    {
+        changePage("0");
+        changeMasterPage(0);
+    }
+</script>
 
-<button onclick="changePage(0)" >1</button>
-<button onclick="changePage(1)" >2</button>
+<button onclick="logout()" >Logout</button>
+<div>
+    <h5>change page</h5>
+    <button onclick="changePage(2)" >1</button>
+    <button onclick="changePage(1)" >2</button>
+</div>
+
 -----masterpage2
 -----page1
-<div><h1>This is page 1!</h1></div>
+<div><button onclick="changePage(2);changeMasterPage(1)" >login</button></div>
 -----page1
 -----page2
-<div><h1>This is page 2!</h1></div>
+<div><h1>This is page 1!</h1></div>
 -----page2
+-----page3
+<div><h1>This is page 2!</h1></div>
+-----page3
