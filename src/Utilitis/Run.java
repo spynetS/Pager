@@ -17,6 +17,7 @@ public class Run {
     public static void main(String[] args) throws Exception {
         String output="output/index.html";
         String input="htmls";
+        long last = 0;
 
         if(args.length>0)
         {
@@ -26,49 +27,30 @@ public class Run {
                 input=(args[1]);
             }
         }
-
-        long last = 0;
-
-        String fileName = "F:/dev/java/Pager/res/project.txt";
+        String fileName = "";
         Path file = Paths.get(fileName);
         BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
 
         while(true) {
             Thread.sleep(100);
-            for(Page page: FileHandler.GetHtmlsFiles(new File(input),"p",null,0))
+            ArrayList<Page> pages = FileHandler.GetHtmlsFiles(new File(input),"p",null,0);
+            pages.addAll(FileHandler.GetHtmlsFiles(new File(input),"mp",null,0));
+            for(Page page: pages)
             {
+                //reads files properties
                 fileName = page.getFile().getAbsolutePath();
                 file = Paths.get(fileName);
                 attr = Files.readAttributes(file, BasicFileAttributes.class);
 
+                //Checks if latest modification is greater then the last time
                 if (attr.lastModifiedTime().to(TimeUnit.SECONDS) > last) {
+
                     Compiler.Compile(output,input);
                     last = attr.lastModifiedTime().to(TimeUnit.SECONDS);
+                    System.out.println("Compiled");
 
-                    System.out.println("Compile");
-                }
-                else
-                {
                 }
             }
-            for(Page page: FileHandler.GetHtmlsFiles(new File(input),"mp",null,0))
-            {
-                fileName = page.getFile().getAbsolutePath();
-                file = Paths.get(fileName);
-                attr = Files.readAttributes(file, BasicFileAttributes.class);
-
-                if (attr.lastModifiedTime().to(TimeUnit.SECONDS) > last) {
-                    Compiler.Compile(output,input);
-                    last = attr.lastModifiedTime().to(TimeUnit.SECONDS);
-
-                    System.out.println("Compile");
-                }
-                else
-                {
-                }
-            }
-
         }
     }
-
 }
