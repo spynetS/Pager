@@ -147,7 +147,7 @@ public class Compiler {
                 "    }\n" +
                 "    return \"\";\n" +
                 "}"+"\n" +
-                "function changePage(index){\n" +
+                "function changePage(index,display){\n" +
                 "    document.cookie=\"page=\"+index;\n" +
                 "    var pages = [");
 
@@ -166,11 +166,11 @@ public class Compiler {
                 "        {\n" +
                 "            if(pages[i]===index)\n" +
                 "            {\n" +
-                "                document.getElementById(pages[i]).style.display = \"flex\";\n" +
+                "                document.getElementById(pages[i]).style.display = display;\n" +
                 "            }\n" +
                 "            else if(pages[i]==index)\n" +
                 "            {\n" +
-                "                document.getElementById(pages[i]).style.display = \"flex\";\n" +
+                "                document.getElementById(pages[i]).style.display = display;\n" +
                 "            }\n" +
                 "            else\n" +
                 "            {\n" +
@@ -179,7 +179,7 @@ public class Compiler {
                 "        }\n" +
                 "    }\n" +
                 "}"+"\n" +
-                "function changeMasterPage(index){\n" +
+                "function changeMasterPage(index,display){\n" +
                 "    \n" +
                 "    if(index.toString().includes(\"main\"))\n" +
                 "    {\n" +
@@ -211,11 +211,11 @@ public class Compiler {
                 "        {\n" +
                 "            if(mainpages[i]===index)\n" +
                 "            {\n" +
-                "                document.getElementById(mainpages[i]).style.display = \"flex\";\n" +
+                "                document.getElementById(mainpages[i]).style.display = display;\n" +
                 "            }\n" +
                 "            else\n" +
                 "            {\n" +
-                "                document.getElementById(mainpages[i]).style.display = \"none\";\n" +
+                "                document.getElementById(mainpages[i]).style.display = display;\n" +
                 "            }\n" +
                 "        }\n" +
                 "    }\n" +
