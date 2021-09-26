@@ -197,7 +197,7 @@ public class Compiler {
                 "    }\n" +
                 "    var mainpages = [");
         ArrayList<Page> mainpages = FileHandler.GetHtmlsFiles(new File(getInputFile()),mainpagestring,null,0);
-        for (Page page: pages) {
+        for (Page page: mainpages) {
             if(page.getId().equals("0"))
                 fw.write("\"main"+page.getId()+"\"");
             else
