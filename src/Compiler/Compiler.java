@@ -284,6 +284,22 @@ public class Compiler {
         }
     }
 
+    public static void Compile(String output,String input)throws Exception
+    {
+        setOutputfile(output);
+
+        setInputFile(input);
+
+        CompiledFile = (ArrayList<String>) Files.readAllLines(Paths.get(getOutputfile()));
+        ResetBody();
+        ResetBody();
+        ResetBody();
+        ResetMainPages();
+        CompileToOutputFile();
+        CompileToJs();
+        WriteToOutputFile();
+    }
+
     public static void main(String[] args) throws Exception
     {
         if(args.length>0)
