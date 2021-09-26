@@ -215,7 +215,7 @@ public class Compiler {
                 "            }\n" +
                 "            else\n" +
                 "            {\n" +
-                "                document.getElementById(mainpages[i]).style.display = display;\n" +
+                "                document.getElementById(mainpages[i]).style.display = \"none\";\n" +
                 "            }\n" +
                 "        }\n" +
                 "    }\n" +
