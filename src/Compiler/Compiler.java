@@ -147,7 +147,7 @@ public class Compiler {
                 "    }\n" +
                 "    return \"\";\n" +
                 "}"+"\n" +
-                "function changePage(index){\n" +
+                "function changePage(index,display){\n" +
                 "    document.cookie=\"page=\"+index;\n" +
                 "    var pages = [");
 
@@ -166,11 +166,11 @@ public class Compiler {
                 "        {\n" +
                 "            if(pages[i]===index)\n" +
                 "            {\n" +
-                "                document.getElementById(pages[i]).style.display = \"flex\";\n" +
+                "                document.getElementById(pages[i]).style.display = display;\n" +
                 "            }\n" +
                 "            else if(pages[i]==index)\n" +
                 "            {\n" +
-                "                document.getElementById(pages[i]).style.display = \"flex\";\n" +
+                "                document.getElementById(pages[i]).style.display = display;\n" +
                 "            }\n" +
                 "            else\n" +
                 "            {\n" +
@@ -179,7 +179,7 @@ public class Compiler {
                 "        }\n" +
                 "    }\n" +
                 "}"+"\n" +
-                "function changeMasterPage(index){\n" +
+                "function changeMasterPage(index,display){\n" +
                 "    \n" +
                 "    if(index.toString().includes(\"main\"))\n" +
                 "    {\n" +
@@ -197,7 +197,7 @@ public class Compiler {
                 "    }\n" +
                 "    var mainpages = [");
         ArrayList<Page> mainpages = FileHandler.GetHtmlsFiles(new File(getInputFile()),mainpagestring,null,0);
-        for (Page page: pages) {
+        for (Page page: mainpages) {
             if(page.getId().equals("0"))
                 fw.write("\"main"+page.getId()+"\"");
             else
@@ -211,7 +211,7 @@ public class Compiler {
                 "        {\n" +
                 "            if(mainpages[i]===index)\n" +
                 "            {\n" +
-                "                document.getElementById(mainpages[i]).style.display = \"flex\";\n" +
+                "                document.getElementById(mainpages[i]).style.display = display;\n" +
                 "            }\n" +
                 "            else\n" +
                 "            {\n" +
@@ -284,6 +284,22 @@ public class Compiler {
         }
     }
 
+    public static void Compile(String output,String input)throws Exception
+    {
+        setOutputfile(output);
+
+        setInputFile(input);
+
+        CompiledFile = (ArrayList<String>) Files.readAllLines(Paths.get(getOutputfile()));
+        ResetBody();
+        ResetBody();
+        ResetBody();
+        ResetMainPages();
+        CompileToOutputFile();
+        CompileToJs();
+        WriteToOutputFile();
+    }
+
     public static void main(String[] args) throws Exception
     {
         if(args.length>0)
@@ -302,6 +318,6 @@ public class Compiler {
         CompileToOutputFile();
         CompileToJs();
         WriteToOutputFile();
-        Debug.Log("Compiled to output/index.html successfully");
+        Debug.Log("Compiled to "+outputfile+" successfully");
     }
 }
