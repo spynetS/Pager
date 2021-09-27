@@ -47,6 +47,7 @@ public class InitProject {
                 "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
                 "    <script type=\"text/javascript\" src=\"../js/navigation.js\"></script>\n" +
                 "    <title>Home</title>\n" +
+                "<script>reload()</script>"+
                 "</head>\n" +
                 "<body>\n" +
                 "<mainpages>\n" +
