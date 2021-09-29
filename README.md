@@ -55,6 +55,14 @@ java -jar pc.jar
 ```
 java -jar pc.jar [outputfolder/outputfile]  [inputfolder]
 ```
+* Auto compilation
+```
+java -jar prun.jar
+```
+* If you want to customize your folders and files
+```
+java -jar prun.jar [outputfolder/outputfile]  [inputfolder]
+```
 ## Help
 
 
