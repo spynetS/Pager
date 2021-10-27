@@ -11,9 +11,6 @@ import java.util.concurrent.TimeUnit;
 
 public class AutoCompile {
 
-
-
-
     public static void main(String[] args) throws Exception {
         String output="output/index.html";
         String input="htmls";
@@ -37,7 +34,7 @@ public class AutoCompile {
             pages.addAll(FileHandler.GetHtmlsFiles(new File(input),"mp",null,0));
             for(Page page: pages)
             {
-                //reads files properties
+                //Reads files properties
                 fileName = page.getFile().getAbsolutePath();
                 file = Paths.get(fileName);
                 attr = Files.readAttributes(file, BasicFileAttributes.class);
@@ -47,8 +44,7 @@ public class AutoCompile {
 
                     Compiler.Compile(output,input);
                     last = attr.lastModifiedTime().to(TimeUnit.SECONDS);
-                    System.out.println("Compiled");
-
+                    System.out.println("Compiled "+ page.getFile().getName());
                 }
             }
         }
