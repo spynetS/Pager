@@ -65,18 +65,20 @@ public class InitProject {
         Debug.Log("project initialized successfully at "+FileHandler.getProjectPath());
     }
 
-    public static void main(String[] args)
+    public static void main(String[] args) throws Exception
     {
-        try {
-            if (args.length > 0) {
-                Init(args[0]);
-            } else {
-                Init("");
+        if (args.length > 0) {
+            if(args[0].equals("-h"))
+            {
+                Debug.Log("Write name of project after init");
             }
+            else
+                Init(args[0]);
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        else {
+            Init("Pager_Project");
         }
+
     }
 
 }

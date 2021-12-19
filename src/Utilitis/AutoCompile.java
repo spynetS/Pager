@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 public class AutoCompile {
 
-    public static void main(String[] args) throws Exception {
+    public static void pain(String[] args) throws Exception {
         String output="output/index.html";
         String input="htmls";
         long last = 0;
@@ -30,7 +30,9 @@ public class AutoCompile {
 
         while(true) {
             Thread.sleep(100);
-            ArrayList<Page> pages = FileHandler.GetHtmlsFiles(new File(input),"p",null,0);
+
+            ArrayList<Page> pages = FileHandler.GetHtmlsFiles(new File(input), "p", null, 0);
+
             pages.addAll(FileHandler.GetHtmlsFiles(new File(input),"mp",null,0));
             for(Page page: pages)
             {

@@ -28,14 +28,20 @@ public class FileHandler {
         fw.write(command);
         fw.close();
     }
-    public static void WritePage(String path,ArrayList<String> lines) throws IOException {
-        FileWriter fw = new FileWriter(path);
+    public static void WritePage(String path,ArrayList<String> lines){
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(path);
+
         for(String line : lines)
         {
             fw.write(line);
             fw.write("\n");
         }
         fw.close();
+        } catch (IOException e) {
+            Debug.Error("Could not write to "+path);
+        }
     }
     public static String SetPath(String localpath)
     {
