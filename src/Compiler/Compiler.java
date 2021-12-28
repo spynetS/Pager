@@ -72,6 +72,7 @@ public class Compiler {
         outputfile = outputFile;
     }
 
+    //When recompiling
     public static void ResetBody()
     {
         ArrayList<String> lines = (ArrayList<String>) CompiledFile.clone();
@@ -98,6 +99,7 @@ public class Compiler {
             i++;
         }
     }
+    //When recompiling
 
     public static void ResetMainPages()
     {

@@ -1,6 +1,7 @@
 import Initilize.InitProject;
 import Utilitis.AutoCompile;
 import Utilitis.Debug;
+import Compiler.Compiler;
 
 import java.io.IOException;
 import java.util.*;
@@ -37,12 +38,9 @@ public class Main {
             else if(args[0].equals("compile"))
             {
                 try {
-                    InitProject.main(getArgs(args,0));
-                }
-                catch (IOException e)
+                    Compiler.main(getArgs(args,0));
+                } catch (Exception e)
                 {
-                    Debug.Error("WARNING --- The project is probably not set up currently.");
-                } catch (Exception e) {
                     Debug.Error("WARNING --- The project is probably not set up currently.");
                 }
             }

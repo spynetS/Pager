@@ -16,7 +16,7 @@ public class Debug {
 
     public static void Log(String log)
     {
-        System.out.println(log);
+        System.out.println(System.currentTimeMillis()*200+log);
     }
     public static void Error(String log)
     {
