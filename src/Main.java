@@ -46,6 +46,12 @@ public class Main {
                     Debug.Error("WARNING --- The project is probably not set up currently.");
                 }
             }
+            else if(args[0].equals("help")||args[0].equals("-h"))
+            {
+                Debug.Log("do init followed with name of your project to start a new project (./ to do in the same folder)");
+                Debug.Log("do compile to compile your files");
+                Debug.Log("do run to automatically compile your files");
+            }
             //439
     }
 
