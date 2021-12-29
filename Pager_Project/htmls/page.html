@@ -2,20 +2,17 @@ import Input from './Input.html'
 import Button from './Button.html'
 
 <script>
-   function test() {
-              console.log("test");
-               //when the document is finished loading, replace everything
-               //between the <a ...> </a> tags with the value of splitText
-                let x = document.getElementById("Page1_input").value;
-                console.log(x);
-                document.getElementById("id1").innerHTML=x;
+    function test() {
+        let x = document.getElementById("page2textValue").innerHTML;
 
-        }
+        console.log(x);
+
+    }
     </script>
 
 <h1>Page 1</h1>
 
+<label id="mylabel" ></label>>
+<Input :PLACEHOLDER="Write something" @valueId="textValue" ></Input>
 
-<Input :my_text="id1" :input="Page1_input" :defT="what?" ></Input>
-
-<Button :function="test()" :labelvalue="e" :buttonText="you mamma" ></Button>
+<Button :functionName="test()" :labelvalue="e" :buttonText="you mamma" ></Button>

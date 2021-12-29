@@ -1,5 +1,7 @@
 package Utilitis;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Debug {
@@ -16,7 +18,9 @@ public class Debug {
 
     public static void Log(String log)
     {
-        System.out.println(System.currentTimeMillis()*200+log);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(dtf.format(now)+" "+log);
     }
     public static void Error(String log)
     {

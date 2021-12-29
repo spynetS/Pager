@@ -18,7 +18,10 @@ public class Main {
                 catch (IOException e)
                 {
                     Debug.Error("WARNING --- The project is probably not set up currently.");
+                    e.printStackTrace();
                 } catch (Exception e) {
+                    e.printStackTrace();
+
                     Debug.Error("WARNING --- The project is probably not set up currently.");
                 }
             }

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Compiler2:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Compiler2_jar</output-path>
+    <root id="archive" name="Pager.jar">
+      <element id="module-output" name="Pager" />
+    </root>
+  </artifact>
+</component>

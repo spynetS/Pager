@@ -1,5 +1,6 @@
 package Utilitis;
 import Compiler.Compiler;
+import Compiler.Compiler2;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -31,9 +32,9 @@ public class AutoCompile {
         while(true) {
             Thread.sleep(100);
 
-            ArrayList<Page> pages = FileHandler.GetHtmlsFiles(new File(input), "p", null, 0);
+            ArrayList<Page> pages = FileHandler.GetHtmlsFiles(new File(input), "html", null, 0);
 
-            pages.addAll(FileHandler.GetHtmlsFiles(new File(input),"mp",null,0));
+            pages.addAll(FileHandler.GetHtmlsFiles(new File(input),"html",null,0));
             for(Page page: pages)
             {
                 //Reads files properties
@@ -44,9 +45,10 @@ public class AutoCompile {
                 //Checks if latest modification is greater then the last time
                 if (attr.lastModifiedTime().to(TimeUnit.SECONDS) > last) {
 
-                    Compiler.Compile(output,input);
+                    Compiler2.main(args);
+
                     last = attr.lastModifiedTime().to(TimeUnit.SECONDS);
-                    System.out.println("Compiled "+ page.getFile().getName());
+                    Debug.Log("Compiled "+ page.getFile().getName());
                 }
             }
         }

@@ -13,15 +13,14 @@
 <div class='center' >
 
 <script>
-   function test() {
-              console.log("test");
-               //when the document is finished loading, replace everything
-               //between the <a ...> </a> tags with the value of splitText
-                let x = document.getElementById("Page1_input").value;
-                console.log(x);
-                document.getElementById("id1").innerHTML=x;
-
-        }
+    function test() {
+        console.log("test");
+        //when the document is finished loading, replace everything
+        //between the <a ...> </a> tags with the value of splitText
+        let x = document.getElementById("Page1_input").value;
+        console.log(x);
+        document.getElementById("id1").innerHTML=x;
+    }
     </script>
 
 <h1>Page 1</h1>
@@ -29,9 +28,10 @@
 
 <div class='center' >
 
-<label class="knas" id="id1" >what?</label>
-<Input id="Page1_input" type="text">
 
+<div>
+    <Page1_input style="width: 72px;" type="text">
+</div>
 
 <style>
     .knas{
@@ -42,7 +42,7 @@
 
 <div class='center' >
 
-<Button onclick="test()" >
+<Button onclick="test()Name" >
     <label id="e" >you mamma</label>
 </Button>
 </div>
