@@ -1,6 +1,8 @@
+import Page from './page.html'
+
 <!doctype html>
-import Page1 from './page.html'
-import Input from './Input.html'
+
+
 
 <html lang="en">
 <head >
@@ -8,19 +10,25 @@ import Input from './Input.html'
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="../js/navigation.js"></script>
     <title>Home</title>
-    <script>reload()</script></head>
+
+      </script>
+
+   </head>
 <body>
 
+   <Page :classes="shown" />
 
-    <Page1 :id="page1"  ></Page1>
+<style>
 
-    <style>
-        .center {
-            margin: auto;
-            width: 50%;
-            padding: 10px;
-        }
-    </style>
+   .hidden{
+      display: none;
+   }
+
+   .shown{
+      display: flex;
+   }
+
+</style>
 
 </body>
 

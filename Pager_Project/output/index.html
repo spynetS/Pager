@@ -1,61 +1,71 @@
+
+
 <!doctype html>
-
 <html lang="en">
-<head >
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="../js/navigation.js"></script>
-    <title>Home</title>
-    <script>reload()</script></head>
-<body>
-
-
-<div  >
-
-<script>
-    function test() {
-        let x = document.getElementById("page2textValue").innerHTML;
-
-        console.log(x);
-
-    }
-    </script>
-
-<h1>Page 1</h1>
-
-<label page1="mylabel" ></label>>
-<div  page1='page1k' >
-
-
-<div>
-    <input name="knas" placeholder="Write something" type="text">
-    <label page1="page2textValue" style="font-size: 1%;" >What the fack</label>
-
-</div>
-
-<style>
-    .knas{
-        border: 3px solpage1 green;
-    }
-</style>
-</div>
-
-<div  >
-
-<Button onclick="test()" >
-    <label page1="e" >you mamma</label>
-</Button>
-</div>
-</div>
-
-    <style>
-        .center {
-            margin: auto;
-            width: 50%;
-            padding: 10px;
-        }
-    </style>
-
-</body>
-
+   <head >
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script type="text/javascript" src="../js/navigation.js"></script>
+      <title>Home</title>
+      </script>
+   </head>
+   <body>
+      <div  >
+         <script>
+            function getId ()
+            {
+                let x = document.getElementById('minInput').value;
+                console.log(x);
+            }
+         </script>
+         <div id="page1" class="shown" >
+            <h1>Hello world!</h1>
+            <div  id='idk' >
+               <script></script>
+               <div id="MinInput2" >
+                  <div>
+                     <script>
+                        let MinInput2 = "page1MinInput2";
+                        function getId()
+                        {
+                            console.log("what");
+                        }
+                     </script>
+                     <div>
+                        <input id="MinInput2" name="knas" placeholder="PLACEHOLDER" type="text">
+                        <label id="valueId" style="font-size: 1%;" >What the fack</label>
+                        <div  id='idk' >
+                           <Button onclick="getId()" >
+                           <label id="labelvalue" >Button</label>
+                           </Button>
+                        </div>
+                     </div>
+                     <style>
+                        .knas{
+                        border: 3px solid green;
+                        }
+                     </style>
+                  </div>
+                  <h1>
+                  Text
+                  <h1>
+               </div>
+            </div>
+            <div  id='idk' >
+               <Button onclick="getId()" >
+               <label id="labelvalue" >Hello</label>
+               </Button>
+            </div>
+         </div>
+      </div>
+      <style>
+         .hidden{
+         display: none;
+         }
+         .shown{
+         display: flex;
+         }
+      </style>
+   </body>
 </html>
+

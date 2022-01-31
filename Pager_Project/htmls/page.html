@@ -1,18 +1,18 @@
-import Input from './Input.html'
+import Input2 from './Input2.html'
 import Button from './Button.html'
 
 <script>
-    function test() {
-        let x = document.getElementById("page2textValue").innerHTML;
-
+    function getId ()
+    {
+        let x = document.getElementById('minInput').value;
         console.log(x);
-
     }
-    </script>
+</script>
 
-<h1>Page 1</h1>
+<div id="page1" class="classes" >
+    <h1>Hello world!</h1>
+    <Input2 :inputId="MinInput2" />
+    <Button :functionName="getId()" :buttonText="Hello"  />
 
-<label id="mylabel" ></label>>
-<Input :PLACEHOLDER="Write something" @valueId="textValue" ></Input>
 
-<Button :functionName="test()" :labelvalue="e" :buttonText="you mamma" ></Button>
+</div>

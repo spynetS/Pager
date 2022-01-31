@@ -1,10 +1,17 @@
 import Button from './Button.html'
 
+<script>
+    let inputId = "page1inputId";
+    function getId()
+    {
+        console.log("what");
+    }
+</script>
 
 <div>
-    <input name="knas" placeholder="PLACEHOLDER" type="text">
+    <input id="inputId" name="knas" placeholder="PLACEHOLDER" type="text">
     <label id="valueId" style="font-size: 1%;" >What the fack</label>
-
+    <Button :functionName="getId()" :buttonText="Button" />
 </div>
 
 <style>
